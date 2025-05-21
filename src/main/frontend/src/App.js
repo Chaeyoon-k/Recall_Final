@@ -8,11 +8,39 @@ import AnnouncePage from './pages/AnnouncePage'; // AnnouncePage import
 import AnnounceViewPage from './pages/AnnounceViewPage'; // AnnounceViewPage import
 import FaqPage from './pages/FaqPage'; // FaqPage import
 import FaqWritePage from './pages/FaqWritePage';
+import AnnounceWritePage from './pages/AnnounceWritePage';
+import ReportDefectPage from './pages/ReportDefectPage';
+import DefectReportListPage from './pages/DefectReportList';
+import DefectDetail from './pages/DefectDetail';
+import DefectPasswordCheck from './pages/DefectPasswordCheck';
+import DefectModify from './pages/DefectModify';
+import RecallList from './pages/RecallList';
+import RecallDetail from './pages/RecallDetail';
+import DefectDetailsCheckPage from './pages/DefectDetailsCheckPage';
+import RecallStaticsYearPage from './pages/RecallStaticsYearPage'; // RecallStaticsYearPage import
 import { fetchTestData } from './services/api';
 import './styles/App.css';
+import './styles/main.css';
+
+function PdfDownloadPage() {
+  // 쿼리스트링에서 startYear, endYear 추출
+  const params = new URLSearchParams(window.location.search);
+  const startYear = params.get('startYear') || '';
+  const endYear = params.get('endYear') || '';
+  const pdfUrl = `http://localhost:8485/pdf/recall_statics_summaryList?startYear=${startYear}&endYear=${endYear}`;
+  useEffect(() => {
+    window.open(pdfUrl, '_blank');
+  }, [pdfUrl]);
+  return (
+    <div style={{ textAlign: 'center', marginTop: 40 }}>
+      <h2>PDF 다운로드가 새 창에서 시작됩니다.</h2>
+      <a href={pdfUrl} target="_blank" rel="noopener noreferrer">직접 다운로드</a>
+    </div>
+  );
+}
 
 function App() {
-const [backendData, setBackendData] = useState(null);
+  const [backendData, setBackendData] = useState(null);
 
   useEffect(() => {
     const loadTestData = async () => {
@@ -23,40 +51,30 @@ const [backendData, setBackendData] = useState(null);
     loadTestData();
   }, []);
 
-
   return (
     <Router>
       <MainLayout>
-        {/* 네비게이션은 Header 컴포넌트 내부에서 처리되므로 여기서는 삭제하거나 변경 */}
-        {/* 기존 App.js의 <nav> 부분은 Header.js로 옮겨졌습니다. */}
-        {/* 만약 App.js에서 라우팅을 테스트할 메뉴가 필요하면 여기에 추가 가능 */}
-        {/* 예를 들어, AnnouncePage로 가는 링크 추가: */}
-        <nav>
-          <ul>
-            <li><Link to="/">홈</Link></li>
-            <li><Link to="/profile">프로필</Link></li>
-            <li><Link to="/announce">공지사항</Link></li> {/* 공지사항 링크 추가 */}
-          </ul>
-        </nav>
-
-
-
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<UserProfilePage />} />
-          <Route path="/announce" element={<AnnouncePage />} /> 
-          <Route path="/announce_view/:id" element={<AnnounceViewPage />} /> 
-          <Route path="/notice" element={<FaqPage />} /> 
+          <Route path="/announce" element={<AnnouncePage />} />
+          <Route path="/announce_view/:id" element={<AnnounceViewPage />} />
+          <Route path="/notice" element={<FaqPage />} />
           <Route path="/notice_write" element={<FaqWritePage />} />
+          <Route path="/announce_write" element={<AnnounceWritePage />} />
+          <Route path="/defect_reports" element={<ReportDefectPage />} />
+          <Route path="/defect_list" element={<DefectReportListPage />} />
+          <Route path="/defect_detail/:id" element={<DefectDetail />} />
+          <Route path="/defect_pwcheck/:id" element={<DefectPasswordCheck />} />
+          <Route path="/defect_modify/:id" element={<DefectModify />} />
+          <Route path="/recall_list" element={<RecallList />} />
+          <Route path="/recall_detail/:id" element={<RecallDetail />} />
+          <Route path="/defect_details_check" element={<DefectDetailsCheckPage />} />
+          <Route path="/recall_statics_year" element={<RecallStaticsYearPage />} />
+          <Route path="/recall_statics_year/pdf" element={<PdfDownloadPage />} />
         </Routes>
 
-
-        {backendData && (
-          <div style={{ marginTop: '20px', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
-            <h3>백엔드 데이터:</h3>
-            <p>{backendData}</p>
-          </div>
-        )}
+       
       </MainLayout>
     </Router>
   );
