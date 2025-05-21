@@ -107,7 +107,7 @@ function ReportDefectPage() {
     setSubmitSuccess(null);
 
     try {
-      const API_URL = 'http://localhost:8485/api/defect_reports_ok';
+      const API_URL = 'https://recall-final-backendtest.onrender.com/api/defect_reports_ok';
       const dataToSend = { ...formData };
       delete dataToSend.mobile_number_display;
       delete dataToSend.phone_number_display;

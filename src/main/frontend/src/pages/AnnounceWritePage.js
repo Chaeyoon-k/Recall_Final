@@ -15,7 +15,7 @@ function AnnounceWritePage() {
 
   // 공지사항 제출 로직
   const handleAnnounceSubmit = async (formData) => {
-    const API_URL = 'http://localhost:8485/api/announce/write'; // 공지사항 작성 API 경로
+    const API_URL = 'https://recall-final-backendtest.onrender.com/api/announce/write'; // 공지사항 작성 API 경로
 
     // 백엔드 AnnounceDTO 필드에 맞게 formData를 가공할 수 있음
     // 예: const payload = { ...formData, writer: '관리자' };

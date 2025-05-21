@@ -15,7 +15,7 @@ function FaqWritePage() {
 
   // FAQ 제출 로직
   const handleFaqSubmit = async (formData) => {
-    const API_URL = 'http://localhost:8485/api/faqs/write'; // FAQ 작성 API 경로
+    const API_URL = 'https://recall-final-backendtest.onrender.com/api/faqs/write'; // FAQ 작성 API 경로
 
     // 백엔드 FaqsDTO 필드에 맞게 formData를 가공할 수 있음
     // 예: const payload = { ...formData, writer: '관리자' };
